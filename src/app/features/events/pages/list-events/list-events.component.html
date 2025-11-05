@@ -1,0 +1,28 @@
+<div class="container py-4">
+    <h2 class="mb-3">Liste des événements</h2>
+    <button class="btn btn-success mb-4" routerLink="/events/add">➕ Proposer un événement</button>
+
+    <!-- Recherche -->
+    <input type="text" class="form-control mb-4"
+           placeholder="Rechercher un événement"
+           [(ngModel)]="searchTerm">
+
+    <div class="row g-3" >
+        <div class="col-md-4" *ngFor="let event of Eventlist">   
+            <app-event-card [eventC]="event" [dateTest]="campare(event)" (likes)="increment_likes($event)"></app-event-card>
+        </div>
+       
+    </div>
+     
+</div>
+<ng-template #notfound>
+                    <p class="text-danger">No results found</p>
+    </ng-template>
+
+<div>
+    <router-outlet></router-outlet>
+</div>
+
+
+<h2>Add New Event</h2>
+<app-add-event></app-add-event>

@@ -1,0 +1,48 @@
+<form [formGroup]="eventForm" (ngSubmit)="addEvent()" class="form-group">
+
+  <label for="titre">Titre</label>
+  <input id="titre" formControlName="titre" class="form-control" />
+  <div class="text-danger" *ngIf="eventForm.get('titre')?.touched && eventForm.get('titre')?.errors">
+    <small *ngIf="eventForm.get('titre')?.errors?.['required']">Le titre est obligatoire.</small>
+    <small *ngIf="eventForm.get('titre')?.errors?.['minlength']">Min 5 caractères.</small>
+    <small *ngIf="eventForm.get('titre')?.errors?.['pattern']">Seulement des lettres.</small>
+  </div>
+
+  <label for="description">Description</label>
+  <textarea id="description" formControlName="description" class="form-control"></textarea>
+  <div class="text-danger" *ngIf="eventForm.get('description')?.touched && eventForm.get('description')?.errors">
+    <small *ngIf="eventForm.get('description')?.errors?.['required']">Description requise.</small>
+    <small *ngIf="eventForm.get('description')?.errors?.['minlength']">Min 30 caractères.</small>
+  </div>
+
+  <label for="date">Date</label>
+  <input id="date" type="date" formControlName="date" class="form-control" />
+  <div class="text-danger" *ngIf="eventForm.get('date')?.touched && eventForm.get('date')?.errors">
+    <small *ngIf="eventForm.get('date')?.errors?.['required']">Date obligatoire.</small>
+    <small *ngIf="eventForm.get('date')?.errors?.['futureDateInvalid']">
+      {{ eventForm.get('date')?.errors?.['futureDateInvalid'] }}
+    </small>
+  </div>
+
+  <label for="lieu">Lieu</label>
+  <input id="lieu" formControlName="lieu" class="form-control" />
+
+  <label for="prix">Prix (€)</label>
+  <input id="prix" formControlName="prix" class="form-control" />
+  <div class="text-danger" *ngIf="eventForm.get('prix')?.touched && eventForm.get('prix')?.errors">
+    <small *ngIf="eventForm.get('prix')?.errors?.['pattern']">Chiffres et points uniquement.</small>
+  </div>
+
+  <label for="nbPlaces">Nombre de places</label>
+  <input id="nbPlaces" formControlName="nbPlaces" class="form-control" />
+  <div class="text-danger" *ngIf="eventForm.get('nbPlaces')?.touched && eventForm.get('nbPlaces')?.errors">
+    <small *ngIf="eventForm.get('nbPlaces')?.errors?.['pattern']">Doit être ≤ 100.</small>
+  </div>
+
+  <label for="imageUrl">Image URL</label>
+  <input id="imageUrl" formControlName="imageUrl" class="form-control" />
+
+  <button class="btn btn-primary mt-3" type="submit" [disabled]="eventForm.invalid">
+    Ajouter
+  </button>
+</form>
